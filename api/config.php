@@ -14,6 +14,13 @@ try {
 } catch (PDOException $e) {
     http_response_code(500);
     header('Content-Type: application/json');
-    echo json_encode(['error' => 'Database connection failed']);
+    echo json_encode([
+        'error'  => $e->getMessage(),
+        'host'   => $host,
+        'port'   => $port,
+        'db'     => $db,
+        'user'   => $user,
+        'driver_installed' => in_array('mysql', PDO::getAvailableDrivers()),
+    ]);
     exit;
 }
