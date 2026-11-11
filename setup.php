@@ -1,6 +1,5 @@
 <?php
-// ONE-TIME SETUP: creates the table and adds dummy data.
-// Visit this page once, then DELETE this file from your project.
+// ONE-TIME SETUP: delete this file after running it
 require_once 'api/config.php';
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS profiles (
@@ -13,7 +12,6 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS profiles (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )");
 
-// Only insert dummy data if the table is empty (prevents duplicates)
 $count = $pdo->query('SELECT COUNT(*) FROM profiles')->fetchColumn();
 if ($count > 0) {
     echo "Table already has $count profiles. Nothing added. Delete setup.php now.";
@@ -32,4 +30,4 @@ $rows = [
 $stmt = $pdo->prepare('INSERT INTO profiles (name, tagline, location, email, services) VALUES (?, ?, ?, ?, ?)');
 foreach ($rows as $r) $stmt->execute($r);
 
-echo "Done! Table created and " . count($rows) . " profiles added. Now DELETE setup.php from your project.";
+echo "Done! Table created and " . count($rows) . " profiles added. Now DELETE setup.php.";
